@@ -1,0 +1,22 @@
+# Basic deep learning project requirements
+# Edit and pin versions as needed (e.g., numpy==1.25.2)
+numpy
+pandas
+scikit-learn
+matplotlib
+seaborn
+jupyter
+tqdm
+opencv-python
+
+# Utilities used by many projects
+gdown
+streamlit
+
+# Deep learning frameworks: uncomment one or both and pin versions for reproducible installs
+# torch
+# torchvision
+# torchaudio
+# tensorflow
+
+# Add any project-specific libraries below (or send me `app.py` imports and I'll pin exact packages)
