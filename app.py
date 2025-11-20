@@ -369,3 +369,4 @@ elif page == "Settings":
 # -------------------------
 st.markdown('<div class="small-muted" style="text-align:center; margin-top:18px;">❤️ — Automated Brain Stroke Classification</div>', unsafe_allow_html=True)
 
+
