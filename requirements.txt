@@ -1,22 +1,13 @@
-# Basic deep learning project requirements
-# Edit and pin versions as needed (e.g., numpy==1.25.2)
+streamlit==1.25.0
+torch==2.1.0
+torchvision==0.16.0
+monai==1.3.0
 numpy
 pandas
-scikit-learn
 matplotlib
-seaborn
-jupyter
-tqdm
-opencv-python
-
-# Utilities used by many projects
+Pillow
+reportlab
 gdown
-streamlit
 
-# Deep learning frameworks: uncomment one or both and pin versions for reproducible installs
-# torch
-# torchvision
-# torchaudio
-# tensorflow
 
-# Add any project-specific libraries below (or send me `app.py` imports and I'll pin exact packages)
+
