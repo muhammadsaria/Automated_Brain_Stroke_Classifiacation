@@ -1,4 +1,5 @@
 # app_final.py
+# app_final.py
 # Automated Brain Stroke Classification — Final
 # Features: MONAI DenseNet121 prediction, dark/light mode, loading spinner, multi-color theme,
 # PDF export (ReportLab), Doctor summary page, Multi-scan comparison.
@@ -31,7 +32,7 @@ except Exception:
 # -------------------------
 st.set_page_config(page_title="Automated Brain Stroke Classification", page_icon="🧠", layout="wide")
 
-MODEL_PATH = "best_model (1).pth"
+MODEL_PATH = "best_monai_densenet121.pth"
 LOGS_CSV = "predictions_log.csv"
 
 single_transform = Compose([LoadImage(image_only=True), EnsureChannelFirst(), ScaleIntensity()])
@@ -86,7 +87,7 @@ else:
     )
 
 st.markdown('<div class="app-title">🧠 Automated Brain Stroke Classification</div>', unsafe_allow_html=True)
-st.markdown('<div class="app-sub">MONAI DenseNet121 • Upload CT → Predict </div>', unsafe_allow_html=True)
+st.markdown('<div class="app-sub">MONAI DenseNet121 • Upload CT → Predict</div>', unsafe_allow_html=True)
 
 # -------------------------
 # Model loader
@@ -210,7 +211,8 @@ if page == "Classification":
         tmpname = f"upload_{int(time.time())}.png"
         save_uploaded_file(uploaded, tmpname)
         uploaded_path = tmpname
-        st.image(uploaded_path, caption="CT preview", use_container_width=True)
+        img_to_show = Image.open(uploaded_path)
+        st.image(img_to_show, caption="CT preview", use_container_width=True)
 
         if st.button("Run Prediction"):
             with st.spinner("Running model (this may take a few seconds)..."):
@@ -368,5 +370,4 @@ elif page == "Settings":
 # Footer
 # -------------------------
 st.markdown('<div class="small-muted" style="text-align:center; margin-top:18px;">❤️ — Automated Brain Stroke Classification</div>', unsafe_allow_html=True)
-
 
