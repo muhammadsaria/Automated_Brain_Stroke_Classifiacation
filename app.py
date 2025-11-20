@@ -35,7 +35,7 @@ import gdown
 st.set_page_config(page_title="Automated Brain Stroke Classification", page_icon="🧠", layout="wide")
 
 MODEL_URL = "https://drive.google.com/file/d/1BXWGOpZ4_9WSx_C5pZwX2RduHCGe4-24/view?usp=sharing"  # Replace with your model
-MODEL_PATH = "best_monai_densenet121.pth"
+MODEL_PATH = "best_model (1).pth"
 
 EXAMPLE_IMAGE_URL = "https://drive.google.com/file/d/1Ba7xkNPGIskgLeMUkpJ7y0385NH_ps3R/view?usp=sharing"  # Replace with example CT
 EXAMPLE_IMAGE_PATH = "100 (20)"
@@ -351,4 +351,5 @@ elif page == "Settings":
 
 # -------------------------
 st.markdown('<div class="small-muted" style="text-align:center; margin-top:18px;">Made with ❤️ — Automated Brain Stroke Classification</div>', unsafe_allow_html=True)
+
 
