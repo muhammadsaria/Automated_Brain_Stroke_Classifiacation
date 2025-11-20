@@ -86,7 +86,7 @@ else:
     )
 
 st.markdown('<div class="app-title">🧠 Automated Brain Stroke Classification</div>', unsafe_allow_html=True)
-st.markdown('<div class="app-sub">MONAI DenseNet121 • Upload CT → Predict • Beautiful interface</div>', unsafe_allow_html=True)
+st.markdown('<div class="app-sub">MONAI DenseNet121 • Upload CT → Predict </div>', unsafe_allow_html=True)
 
 # -------------------------
 # Model loader
@@ -210,8 +210,8 @@ if page == "Classification":
         tmpname = f"upload_{int(time.time())}.png"
         save_uploaded_file(uploaded, tmpname)
         uploaded_path = tmpname
+        st.image(uploaded_path, caption="CT preview", use_container_width=True)
 
-        st.image(uploaded_path, caption="CT preview", use_column_width=True)
         if st.button("Run Prediction"):
             with st.spinner("Running model (this may take a few seconds)..."):
                 try:
@@ -270,7 +270,7 @@ if page == "Classification":
 # -------------------------
 elif page == "Multi-scan Compare":
     st.header("Multi-scan Comparison")
-    st.markdown("Upload multiple CT scans. Batch predictions + confidence bar chart.")
+    st.markdown("Upload multiple CT scans (same patient or multiple). The app will run batch predictions and show a comparison table + bar chart.")
     multi = st.file_uploader("Upload multiple CTs", type=["png","jpg","jpeg"], accept_multiple_files=True)
 
     if st.button("Run Batch Prediction") and (multi is not None and len(multi) > 0):
@@ -280,28 +280,20 @@ elif page == "Multi-scan Compare":
             save_uploaded_file(up, tmpname)
             try:
                 pred, conf, probs = predict_with_monai(tmpname)
-            except Exception as e:
+            except Exception:
                 pred, conf = "ERR", 0.0
             results.append({"image": up.name, "prediction": pred, "confidence": round(conf,2)})
             time.sleep(0.05)
         df = pd.DataFrame(results)
         st.dataframe(df)
-
         # Bar chart
         fig, ax = plt.subplots(figsize=(8,3))
         df_plot = df.copy()
         df_plot["confidence"] = df_plot["confidence"].astype(float)
-        colors = ['#2ecc71' if p=="Normal" else '#e74c3c' for p in df_plot["prediction"]]
-        if dark_mode:
-            fig.patch.set_facecolor("#121212")
-            ax.set_facecolor("#1e1e1e")
-            ax.tick_params(colors='white')
-            ax.yaxis.label.set_color('white')
-            ax.xaxis.label.set_color('white')
-        ax.bar(df_plot["image"], df_plot["confidence"], color=colors)
+        ax.bar(df_plot["image"], df_plot["confidence"], color=['#2ecc71' if p=="Normal" else '#e74c3c' for p in df_plot["prediction"]])
         ax.set_ylabel("Confidence (%)")
         ax.set_ylim(0,100)
-        plt.xticks(rotation=45, ha='right', color='white' if dark_mode else 'black')
+        plt.xticks(rotation=45, ha='right')
         st.pyplot(fig)
     else:
         st.info("Upload multiple CT images and press 'Run Batch Prediction'.")
@@ -312,7 +304,6 @@ elif page == "Multi-scan Compare":
 elif page == "Doctor Summary":
     st.header("Doctor Summary")
     st.markdown("View recent predictions, add clinical notes, and export a PDF summary for the doctor.")
-
     df_logs = load_logs_df()
     if df_logs.shape[0] == 0:
         st.info("No predictions logged yet.")
@@ -376,4 +367,5 @@ elif page == "Settings":
 # -------------------------
 # Footer
 # -------------------------
-st.markdown('<div class="small-muted" style="text-align:center; margin-top:18px;">Made with ❤️ — Automated Brain Stroke Classification</div>', unsafe_allow_html=True)
+st.markdown('<div class="small-muted" style="text-align:center; margin-top:18px;">❤️ — Automated Brain Stroke Classification</div>', unsafe_allow_html=True)
+
